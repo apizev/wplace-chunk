@@ -1,0 +1,35 @@
+name: Wplace chunk downloader
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Télécharger les chunks
+        run: |
+          START="2026-07-02"
+          END="2026-07-30"
+          TODAY=$(date +%Y-%m-%d)
+          TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+
+          if [[ "$TODAY" < "$START" || "$TODAY" > "$END" ]]; then
+            echo "Hors plage, arrêt."
+            exit 0
+          fi
+
+          mkdir -p chunks
+          curl -s -o "chunks/zone_france_$TIMESTAMP.png" "https://backend.wplace.live/files/s0/tiles/1342/1259.png"
+
+      - name: Commit et push
+        run: |
+          git config user.email "action@github.com"
+          git config user.name "GitHub Action"
+          git add chunks/
+          git commit -m "Chunks $TIMESTAMP" || echo "Rien à commit"
+          git push
