@@ -2,7 +2,7 @@ name: Wplace chunk downloader
 
 on:
   schedule:
-   - cron: '*/30 * * * *' # toutes les 30 minutes 
+    - cron: '*/10 * * * *'  # toutes les 10 minutes
   workflow_dispatch:
   
 permissions:
