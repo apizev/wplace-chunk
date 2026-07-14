@@ -27,6 +27,7 @@ jobs:
           mkdir -p chunks
           curl -s -o "chunks/zone_france_$TIMESTAMP.png" "https://backend.wplace.live/files/s0/tiles/1347/1262.png"
           curl -s -o "chunks/zone_france2_$TIMESTAMP.png" "https://backend.wplace.live/files/s0/tiles/1348/1262.png"
+          curl -s -o "chunks/zone_france3_$TIMESTAMP.png" "https://backend.wplace.live/files/s0/tiles/1350/1266.png"
 
       - name: Commit et push
         run: |
